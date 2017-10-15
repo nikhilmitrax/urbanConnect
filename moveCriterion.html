@@ -1,0 +1,61 @@
+<html>
+
+<body>
+
+  <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+  <script src="https://js.leapmotion.com/leap-plugins-0.1.12.js"></script>
+  <div id="stage" style="background-color:rgb(191,191,191); width:800; height:600">
+
+  </div>
+  <div id="debug-box" style="background-color: #f2f2f2;width: 200;height: 200;position: absolute;left: 808;top: 200;">-41,128,201</div>
+  <script>
+    const debugBox = document.getElementById("debug-box");
+
+    const boxTL = [-37, 303];
+    const boxBR = [33, 245];
+
+    function moveToHorizontalActivation(tipPos, activationZoneFactor = 0.1) {
+
+      // check if x and y are close enough
+      const x = tipPos[0];
+      const y = tipPos[1];
+      const z = tipPos[2];
+
+      const boxWidth = boxBR[0] - boxTL[0];
+
+      const boxCenter = (boxBR[0] + boxTL[0]);
+      const extraActivationZone = boxWidth * activationZoneFactor;
+      const activationValueMin = boxTL[0] - extraActivationZone;
+      const activationValueMax = boxBR[0] + extraActivationZone;
+
+      if (x > activationValueMax) {
+        return 1;
+      }
+
+
+    }
+    // function
+    Leap.loop(function (frame) {
+      console.log(frame.hands.length);
+
+      if (frame.hands.length > 0) {
+        debugBox.innerHTML = "";
+        const finger = frame.hands[0].indexFinger;
+        debugBox.innerHTML += indexFinger.screenPosition().map(val => Math.round(val));
+        debugBox.innerHTML += '<br />';
+        var rect = debugBox.getBoundingClientRect();
+        debugBox.innerHTML += `Box pos : ${Math.round(rect.top)}, ${Math.round(rect.right)}, ${Math.round(rect.bottom)}, ${Math.round(rect.left)}`;
+        debugBox.innerHTML += '<br />';
+        // const zoomFactor = transformCoordToZoomIndex(finger.tipPosition);
+
+        // debugBox.innerHTML += `zoom factor ${zoomFactor}`;
+        // debugBox.style.transform = `scale(${zoomFactor},${zoomFactor})`
+      }
+
+      // console.log(frame.hands[0].fingers);
+    }).use('screenPosition', { scale: 0.25 });
+  </script>
+  <link href="/style.css">
+</body>
+
+</html>
