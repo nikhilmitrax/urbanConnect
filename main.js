@@ -35,27 +35,27 @@ function transformBox(tipPos, box, scaleDelta, slack = 20) {
   const y = finger[1];
   const z = finger[2];
 
-  const boxCenter = [(relativePosition.left + relativePosition.right)/2, (relativePosition.top + relativePosition.bottom)/2, screenZ]
-  const fingerDistance = minkowskiDistance(finger, boxCenter, p=2, coefficient=[1,0.4,1])
 
   // FOr XY locked only z based zooming
-  // const distanceFactor = ((z - vPlaneZ) / (screenZ - vPlaneZ))
-  // let zoomFactor = 1 + distanceFactor * scaleDelta;
+  const distanceFactor = ((z - vPlaneZ) / (screenZ - vPlaneZ))
+  let zoomFactor = 1 + distanceFactor * scaleDelta;
 
-  // if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack))
-  //   zoomFactor = 1
-  // if (z > vPlaneZ)
-  //   zoomFactor = 1;
+  if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack))
+    zoomFactor = 1
+  if (z > vPlaneZ)
+    zoomFactor = 1;
 
+  // const boxCenter = [(relativePosition.left + relativePosition.right)/2, (relativePosition.top + relativePosition.bottom)/2, screenZ]
+  // const fingerDistance = minkowskiDistance(finger, boxCenter, p=2, coefficient=[1,1,1])
   
-  let zoomFactor = 1;
-  if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack)){
-  if (fingerDistance < maxInteractableDistance){
-    // console.log("calc factors", fingerDistance, scaleDelta)
-    zoomFactor = 1+((maxInteractableDistance-fingerDistance)/maxInteractableDistance)*(scaleDelta)
-  }
-}
-  // console.log('pre zoom factor', zoomFactor)
+//   let zoomFactor = 1;
+//   if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack)){
+//   if (fingerDistance < maxInteractableDistance){
+//     // console.log("calc factors", fingerDistance, scaleDelta)
+//     zoomFactor = 1+((maxInteractableDistance-fingerDistance)/maxInteractableDistance)*(scaleDelta)
+//   }
+// }
+//   // console.log('pre zoom factor', zoomFactor)
   zoomFactor = isNaN(zoomFactor) ? 1 : zoomFactor.toPrecision(3);
   zoomFactor = (1 + scaleDelta < zoomFactor) ? (1 + scaleDelta) : zoomFactor;
   // console.log('zoom factor', zoomFactor)
@@ -139,7 +139,7 @@ Leap.loop(function (frame) {
 
     showDebugInfo(frame);
     if (calibrationLevel === 0 && paused===false) {
-      zoomBoxes(finger.tipPosition, scaleDelta = 0.7);
+      zoomBoxes(finger.tipPosition, scaleDelta = 0.3);
     }
     document.onkeypress = function (oPEvt) {
       var oEvent = oPEvt || window.event, nChr = oEvent.charCode;
