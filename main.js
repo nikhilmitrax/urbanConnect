@@ -5,7 +5,7 @@ const vPlaneDelta = 50;
 const stageScalingFactor = 1000;
 const defInteractionBox = [[-25.5077, 301.73], [30.6594, 249.462]];
 const stage = [[-25.5077, 301.73], [30.6594, 249.462]];
-const maxInteractableDistance = 250;
+const maxInteractableDistance = 500;
 
 var vPlaneZ = screenZ + vPlaneDelta;
 var screenZ = -120;
@@ -15,13 +15,13 @@ var paused = false;
 function minkowskiDistance(array1, array2, p=2, coefficient = [1,1,1]){
 
   let poweredDistance = 0;
-  console.log("coefficient", coefficient)
+  // console.log("coefficient", coefficient)
   for (let i=0; i<array1.length; i++){
     poweredDistance += coefficient[i] * Math.abs(Math.pow(array1[i], p)-Math.pow(array2[i],p))
   }
-  console.log("Arr1",array1)
-  console.log("Arr2", array2)
-  const totalDistance = Math.pow(poweredDistance, 1/p)
+  // console.log("Arr1",array1)
+  // console.log("Arr2", array2)
+  const totalDistance = Math.pow(poweredDistance, 1/p).toPrecision(3)
   console.log("totalDistance", totalDistance)
   return totalDistance
 }
@@ -49,10 +49,12 @@ function transformBox(tipPos, box, scaleDelta, slack = 20) {
 
   
   let zoomFactor = 1;
+  if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack)){
   if (fingerDistance < maxInteractableDistance){
     // console.log("calc factors", fingerDistance, scaleDelta)
     zoomFactor = 1+((maxInteractableDistance-fingerDistance)/maxInteractableDistance)*(scaleDelta)
   }
+}
   // console.log('pre zoom factor', zoomFactor)
   zoomFactor = isNaN(zoomFactor) ? 1 : zoomFactor.toPrecision(3);
   zoomFactor = (1 + scaleDelta < zoomFactor) ? (1 + scaleDelta) : zoomFactor;
