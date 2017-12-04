@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="files/home/styles.css" type="text/css" rel="stylesheet"/>
+    <style>
+        .interactable-zoom {
+          -webkit-transition: 0.1s ease-in-out;
+          -moz-transition: 0.1s ease-in-out;
+          -o-transition: 0.1s ease-in-out;
+          transition: 0.1s ease-in-out;
+        }
+      </style>
+  </head>
+  <body>
+
+      <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+      <div id="debug-box" class="nothing" style="background-color: #f2f2f2;width: 200px;height: 100px;position: fixed;right: 10px;top: 50px;">-41,128,201</div>
+<!--     
+      <div id="stage" style="background-color:rgb(191,191,191); width:1400px; height:600px;position: fixed;">
+        <div id="box1" class="interactable-zoom" style="background-color: #f2f2f2;width: 100px;height: 100px;position: absolute;left: 10px;top: 10px;">Box 1</div>
+        <div id="box2" class="interactable-zoom" style="background-color: #D64A4A;width: 100px;height: 100px;position: absolute;left: 200px;top: 10px;">Box 2</div>
+        <div id="box3" class="interactable-zoom" style="background-color: #D64A4A;width: 100px;height: 100px;position: absolute;left: 500px;top: 10px;">Box 3</div> 
+    
+      </div> -->
+
+    <div id="stage" class="" style="background-color:rgb(191,191,191); width:1100px; height:1420px;position: fixed;">
+
+      <!-- Box1 (Rectangle) -->
+      <div id="u0" class="ax_default box_2 interactable-zoom" data-label="Box1">
+        <div id="u0_div" class=""></div>
+        <div id="u0_text" class="text ">
+          <p><span>Box 1</span></p>
+        </div>
+      </div>
+
+      <!-- Box2 (Rectangle) -->
+      <div id="u1" class="ax_default box_2 interactable-zoom" data-label="Box2">
+        <div id="u1_div" class=""></div>
+        <div id="u1_text" class="text ">
+          <p><span>Box 2</span></p>
+        </div>
+      </div>
+
+      <!-- Box3 (Rectangle) -->
+      <div id="u2" class="ax_default box_2 interactable-zoom" data-label="Box3">
+        <div id="u2_div" class=""></div>
+        <div id="u2_text" class="text ">
+          <p><span>Box 3</span></p>
+        </div>
+      </div>
+
+      <!-- Box4 (Rectangle) -->
+      <div id="u3" class="ax_default box_2 interactable-zoom" data-label="Box4">
+        <div id="u3_div" class=""></div>
+        <div id="u3_text" class="text ">
+          <p><span>Box 4</span></p>
+        </div>
+      </div>
+
+      <!-- Box5 (Rectangle) -->
+      <div id="u4" class="ax_default box_2 interactable-zoom" data-label="Box5">
+        <div id="u4_div" class=""></div>
+        <div id="u4_text" class="text ">
+          <p><span>Box 5</span></p>
+        </div>
+      </div>
+
+      <!-- Box6 (Rectangle) -->
+      <div id="u5" class="ax_default box_2 interactable-zoom" data-label="Box6">
+        <div id="u5_div" class=""></div>
+        <div id="u5_text" class="text ">
+          <p><span>Box 6</span></p>
+        </div>
+      </div>
+
+      <!-- Box7 (Rectangle) -->
+      <div id="u6" class="ax_default box_2 interactable-zoom" data-label="Box7">
+        <div id="u6_div" class=""></div>
+        <div id="u6_text" class="text ">
+          <p><span>Box 7</span></p>
+        </div>
+      </div>
+
+      <!-- Search (Rectangle) -->
+      <div id="u7" class="ax_default box_2 interactable-zoom" data-label="Search">
+        <div id="u7_div" class=""></div>
+        <div id="u7_text" class="text ">
+          <p><span>?</span></p>
+        </div>
+      </div>
+
+      <!-- Zoom_In (Rectangle) -->
+      <div id="u8" class="ax_default box_2 interactable-zoom" data-label="Zoom_In">
+        <div id="u8_div" class=""></div>
+        <div id="u8_text" class="text ">
+          <p><span>+</span></p>
+        </div>
+      </div>
+
+      <!-- Zoom_Out (Rectangle) -->
+      <div id="u9" class="ax_default box_2 interactable-zoom" data-label="Zoom_Out">
+        <div id="u9_div" class=""></div>
+        <div id="u9_text" class="text ">
+          <p><span>-</span></p>
+        </div>
+      </div>
+
+      <!-- Mid_Box2 (Rectangle) -->
+      <div id="u10" class="ax_default box_2 interactable-zoom" data-label="Mid_Box2">
+        <div id="u10_div" class=""></div>
+        <div id="u10_text" class="text ">
+          <p><span>MB2</span></p>
+        </div>
+      </div>
+
+      <!-- Statlite (Rectangle) -->
+      <div id="u11" class="ax_default box_2 interactable-zoom" data-label="Statlite">
+        <div id="u11_div" class=""></div>
+        <div id="u11_text" class="text ">
+          <p><span>3</span></p>
+        </div>
+      </div>
+
+      <!-- Globe (Rectangle) -->
+      <div id="u12" class="ax_default box_2 interactable-zoom" data-label="Globe">
+        <div id="u12_div" class=""></div>
+        <div id="u12_text" class="text ">
+          <p><span>2</span></p>
+        </div>
+      </div>
+
+      <!-- Tab_1 (Rectangle) -->
+      <div id="u13" class="ax_default box_3" data-label="Tab_1">
+        <div id="u13_div" class=""></div>
+        <div id="u13_text" class="text ">
+          <p><span>Tab 1</span></p>
+        </div>
+      </div>
+
+      <!-- Tab_2 (Rectangle) -->
+      <div id="u14" class="ax_default box_3" data-label="Tab_2">
+        <div id="u14_div" class=""></div>
+        <div id="u14_text" class="text ">
+          <p><span>Tab 2</span></p>
+        </div>
+      </div>
+
+      <!-- Mid_Box1 (Rectangle) -->
+      <div id="u15" class="ax_default box_2" data-label="Mid_Box1">
+        <div id="u15_div" class=""></div>
+        <div id="u15_text" class="text ">
+          <p><span>MB1</span></p>
+        </div>
+      </div>
+
+      <!-- Mid_Box4 (Rectangle) -->
+      <div id="u16" class="ax_default box_2" data-label="Mid_Box4">
+        <div id="u16_div" class=""></div>
+        <div id="u16_text" class="text ">
+          <p><span>MB4</span></p>
+        </div>
+      </div>
+
+      <!-- Mid_Box3 (Rectangle) -->
+      <div id="u17" class="ax_default box_2" data-label="Mid_Box3">
+        <div id="u17_div" class=""></div>
+        <div id="u17_text" class="text ">
+          <p><span>MB3</span></p>
+        </div>
+      </div>
+
+      <!-- Music_Control_2 (Rectangle) -->
+      <div id="u18" class="ax_default box_2" data-label="Music_Control_2">
+        <div id="u18_div" class=""></div>
+        <div id="u18_text" class="text ">
+          <p><span>MC2</span></p>
+        </div>
+      </div>
+
+      <!-- Music_Control 1 (Rectangle) -->
+      <div id="u19" class="ax_default box_2" data-label="Music_Control 1">
+        <div id="u19_div" class=""></div>
+        <div id="u19_text" class="text ">
+          <p><span>MC1</span></p>
+        </div>
+      </div>
+
+      <!-- Music_Control3 (Rectangle) -->
+      <div id="u20" class="ax_default box_2" data-label="Music_Control3">
+        <div id="u20_div" class=""></div>
+        <div id="u20_text" class="text ">
+          <p><span>MC2</span></p>
+        </div>
+      </div>
+
+      <!-- Bottom_Box1 (Rectangle) -->
+      <div id="u21" class="ax_default box_2" data-label="Bottom_Box1">
+        <div id="u21_div" class=""></div>
+        <div id="u21_text" class="text ">
+          <p><span>BB1</span></p>
+        </div>
+      </div>
+
+      <!-- Bottom_Box2 (Rectangle) -->
+      <div id="u22" class="ax_default box_2" data-label="Bottom_Box2">
+        <div id="u22_div" class=""></div>
+        <div id="u22_text" class="text ">
+          <p><span>BB2</span></p>
+        </div>
+      </div>
+
+      <!-- Bottom_Box3 (Rectangle) -->
+      <div id="u23" class="ax_default box_2" data-label="Bottom_Box3">
+        <div id="u23_div" class=""></div>
+        <div id="u23_text" class="text ">
+          <p><span>BB3</span></p>
+        </div>
+      </div>
+
+      <!-- Bottom_Box4 (Rectangle) -->
+      <div id="u24" class="ax_default box_2" data-label="Bottom_Box4">
+        <div id="u24_div" class=""></div>
+        <div id="u24_text" class="text ">
+          <p><span>BB4</span></p>
+        </div>
+      </div>
+
+      <!-- Mini_menu1 (Rectangle) -->
+      <div id="u25" class="ax_default box_2" data-label="Mini_menu1">
+        <div id="u25_div" class=""></div>
+      </div>
+
+      <!-- Mini_menu2 (Rectangle) -->
+      <div id="u26" class="ax_default box_2" data-label="Mini_menu2">
+        <div id="u26_div" class=""></div>
+      </div>
+
+      <!-- Mini_menu3 (Rectangle) -->
+      <div id="u27" class="ax_default box_2" data-label="Mini_menu3">
+        <div id="u27_div" class=""></div>
+      </div>
+
+      <!-- Mini_menu4 (Rectangle) -->
+      <div id="u28" class="ax_default box_2" data-label="Mini_menu4">
+        <div id="u28_div" class=""></div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../main.js"></script>
+    <link href="/style.css">
+  </body>
+</html>

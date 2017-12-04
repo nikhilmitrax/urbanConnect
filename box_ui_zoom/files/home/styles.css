@@ -11,8 +11,6 @@
 #base {
   position:absolute;
   z-index:0;
-  background-color:rgb(244, 244, 244);
-  border: 2px solid;
 }
 #u0_div {
   border-width:0px;

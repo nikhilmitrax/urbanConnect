@@ -1,6 +1,4 @@
-
 const stageDiv = document.getElementById("stage");
-const box2 = document.getElementById("box2");
 const vPlaneDelta = 50;
 const stageScalingFactor = 1000;
 const defInteractionBox = [[-25.5077, 301.73], [30.6594, 249.462]];
@@ -27,7 +25,7 @@ function minkowskiDistance(array1, array2, p=2, coefficient = [1,1,1]){
 }
 
 //TODO : Move zoom to 3D
-function transformBox(tipPos, box, scaleDelta, slack = 20) {
+function transformBox(tipPos, box, scaleDelta, slack = 0) {
 
   var relativePosition = getRelativeNormalizedPosition(box);
   let finger = getNormalizedPointer(tipPos);
@@ -67,6 +65,7 @@ function zoomBoxes(tipPos, scaleDelta = 0.5) {
   boxes = document.getElementsByClassName("interactable-zoom");
   Array.from(boxes).forEach(box => { transformBox(tipPos, box, scaleDelta) });
 }
+
 function getRelativeNormalizedPosition(box) {
 
   // normalized distance from top left
@@ -124,9 +123,9 @@ function showDebugInfo(frame) {
   debugBox.innerHTML += '<br />';
   debugBox.innerHTML += finger.tipPosition.map(val => Math.round(val));
   debugBox.innerHTML += '<br />';
-  var rect = getRelativeNormalizedPosition(box1);
-  debugBox.innerHTML += `Box pos : ${Math.round(rect.top)}, ${Math.round(rect.right)}, ${Math.round(rect.bottom)}, ${Math.round(rect.left)}`;
-  debugBox.innerHTML += '<br />';
+  // var rect = getRelativeNormalizedPosition(box1);
+  // debugBox.innerHTML += `Box pos : ${Math.round(rect.top)}, ${Math.round(rect.right)}, ${Math.round(rect.bottom)}, ${Math.round(rect.left)}`;
+  // debugBox.innerHTML += '<br />';
 
 }
 
@@ -139,7 +138,7 @@ Leap.loop(function (frame) {
 
     showDebugInfo(frame);
     if (calibrationLevel === 0 && paused===false) {
-      zoomBoxes(finger.tipPosition, scaleDelta = 0.3);
+      zoomBoxes(finger.tipPosition, scaleDelta = 0.1);
     }
     document.onkeypress = function (oPEvt) {
       var oEvent = oPEvt || window.event, nChr = oEvent.charCode;
