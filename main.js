@@ -1,5 +1,5 @@
 const stageDiv = document.getElementById("stage");
-const vPlaneDelta = 50;
+const vPlaneDelta = 100;
 const stageScalingFactor = 1000;
 const defInteractionBox = [[-25.5077, 301.73], [30.6594, 249.462]];
 const stage = [[-25.5077, 301.73], [30.6594, 249.462]];
@@ -18,7 +18,7 @@ function minkowskiDistance(array1, array2, p=2, coefficient = [1,1,1]){
     poweredDistance += coefficient[i] * Math.abs(Math.pow(array1[i], p)-Math.pow(array2[i],p))
   }
   // console.log("Arr1",array1)
-  // console.log("Arr2", array2)
+  // console.log("Arr2", array2)u
   const totalDistance = Math.pow(poweredDistance, 1/p).toPrecision(3)
   console.log("totalDistance", totalDistance)
   return totalDistance
@@ -60,12 +60,75 @@ function transformBox(tipPos, box, scaleDelta, slack = 0) {
   box.style.transform = `scale(${zoomFactor},${zoomFactor})`
 }
 
+
+function styleToNumber(v){
+  return Number(v.replace(/[^\d\.\-]/g, ''));
+}
+
+function transformMagnetBox(tipPos, box, scaleDelta, slack = 0) {
+  
+    var relativePosition = getRelativeNormalizedPosition(box.parentElement);
+    let finger = getNormalizedPointer(tipPos);
+    const x = finger[0];
+    const y = finger[1];
+    const z = finger[2];
+  
+    var parent = box.parentElement;
+
+    const Cx = (relativePosition.right - relativePosition.left)/2
+    const Cy = (relativePosition.bottom - relativePosition.top)/2
+
+
+    
+    const topDistance = styleToNumber(box.parentElement.style.height) - styleToNumber(box.style.height);
+    const leftDistance = styleToNumber(box.parentElement.style.width) - styleToNumber(box.style.width);
+
+    if (z> vPlaneZ || x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack)){
+      box.style.top = `${topDistance/2}px`;
+      box.style.left = `${leftDistance/2}px`;
+    }
+    else{
+      // let distanceFactor = ((z - screenZ) / (screenZ - vPlaneZ));
+
+      // //max min on distance factor
+      // distanceFactor = distanceFactor > 1? 1:distanceFactor
+      // distanceFactor = distanceFactor < 0? 0:distanceFactor
+      
+      // console.log(distanceFactor)
+      // Figure out how the magnet behaves.
+
+
+      if (x>Cx && y>Cy){
+        box.style.top = `${topDistance}px`;
+        box.style.left = `${leftDistance}px`;
+      }    
+      if (x>Cx && y<Cy){
+        box.style.top = '0px';
+        box.style.left = `${leftDistance}px`;
+      }
+      if (x<Cx && y<Cy){
+        box.style.top = '0px';
+        box.style.left = '0px';
+      }
+      if (x<Cx && y>Cy){
+        box.style.top = `${topDistance}px`;
+        box.style.left = '0px';
+      }
+    }
+  }
+  
+
 function zoomBoxes(tipPos, scaleDelta = 0.5) {
 
   boxes = document.getElementsByClassName("interactable-zoom");
   Array.from(boxes).forEach(box => { transformBox(tipPos, box, scaleDelta) });
 }
 
+function magnetBoxes(tipPos, scaleDelta = 0.5) {
+    boxes = document.getElementsByClassName("interactable-magnet");
+    Array.from(boxes).forEach(box => { transformMagnetBox(tipPos, box, scaleDelta) });
+}
+  
 function getRelativeNormalizedPosition(box) {
 
   // normalized distance from top left
@@ -116,6 +179,7 @@ function calibrateStage(tipPos) {
 
 const debugBox = document.getElementById("debug-box");
 const box1 = document.getElementById("box1");
+
 function showDebugInfo(frame) {
   debugBox.innerHTML = "";
   const finger = frame.hands[0].indexFinger;
@@ -138,7 +202,8 @@ Leap.loop(function (frame) {
 
     showDebugInfo(frame);
     if (calibrationLevel === 0 && paused===false) {
-      zoomBoxes(finger.tipPosition, scaleDelta = 0.1);
+      // zoomBoxes(finger.stabilizedTipPosition, scaleDelta = 0.1);
+      magnetBoxes(finger.tipPosition, scaleDelta = 0.1);
     }
     document.onkeypress = function (oPEvt) {
       var oEvent = oPEvt || window.event, nChr = oEvent.charCode;
