@@ -10,6 +10,7 @@ var screenZ = -120;
 var interactionBox = [[-45, 240], [40, 310]];
 var calibrationLevel = -1;
 var paused = false;
+
 function minkowskiDistance(array1, array2, p=2, coefficient = [1,1,1]){
 
   let poweredDistance = 0;
@@ -53,10 +54,10 @@ function transformBox(tipPos, box, scaleDelta, slack = 0) {
 //     zoomFactor = 1+((maxInteractableDistance-fingerDistance)/maxInteractableDistance)*(scaleDelta)
 //   }
 // }
-//   // console.log('pre zoom factor', zoomFactor)
+  console.log('pre zoom factor', zoomFactor)
   zoomFactor = isNaN(zoomFactor) ? 1 : zoomFactor.toPrecision(3);
   zoomFactor = (1 + scaleDelta < zoomFactor) ? (1 + scaleDelta) : zoomFactor;
-  // console.log('zoom factor', zoomFactor)
+  console.log('zoom factor', zoomFactor)
   box.style.transform = `scale(${zoomFactor},${zoomFactor})`
 }
 
@@ -196,14 +197,14 @@ function showDebugInfo(frame) {
 function togglePause(){
   paused = !paused;
 }
-Leap.loop(function (frame) {
+Leap.loop({'frameEventName':'deviceFrame'},function (frame) {
   if (frame.hands.length > 0) {
     const finger = frame.hands[0].indexFinger;
 
     showDebugInfo(frame);
     if (calibrationLevel === 0 && paused===false) {
-      // zoomBoxes(finger.stabilizedTipPosition, scaleDelta = 0.1);
-      magnetBoxes(finger.tipPosition, scaleDelta = 0.1);
+      zoomBoxes(finger.stabilizedTipPosition, scaleDelta = 0.5);
+      magnetBoxes(finger.stabilizedTipPosition, scaleDelta = 0.1);
     }
     document.onkeypress = function (oPEvt) {
       var oEvent = oPEvt || window.event, nChr = oEvent.charCode;
