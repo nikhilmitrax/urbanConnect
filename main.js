@@ -37,7 +37,7 @@ function transformBox(tipPos, box, scaleDelta, slack = 0) {
 
   // FOr XY locked only z based zooming
   const distanceFactor = ((z - vPlaneZ) / (screenZ - vPlaneZ))
-  let zoomFactor = 1 + distanceFactor * scaleDelta;
+  let zoomFactor = 1 + scaleDelta;
 
   if (x > (relativePosition.right+slack) || x < (relativePosition.left-slack) || y < (relativePosition.top-slack) || y > (relativePosition.bottom+slack))
     zoomFactor = 1
@@ -179,7 +179,6 @@ function calibrateStage(tipPos) {
 }
 
 const debugBox = document.getElementById("debug-box");
-const box1 = document.getElementById("box1");
 
 function showDebugInfo(frame) {
   debugBox.innerHTML = "";
@@ -197,14 +196,16 @@ function showDebugInfo(frame) {
 function togglePause(){
   paused = !paused;
 }
-Leap.loop({'frameEventName':'deviceFrame'},function (frame) {
+
+function mainLoop(frame) {
+  frame = controller.frame();
   if (frame.hands.length > 0) {
     const finger = frame.hands[0].indexFinger;
 
     showDebugInfo(frame);
     if (calibrationLevel === 0 && paused===false) {
-      zoomBoxes(finger.stabilizedTipPosition, scaleDelta = 0.5);
-      magnetBoxes(finger.stabilizedTipPosition, scaleDelta = 0.1);
+      zoomBoxes(finger.tipPosition, scaleDelta = 0.5);
+      magnetBoxes(finger.tipPosition, scaleDelta = 0.1);
     }
     document.onkeypress = function (oPEvt) {
       var oEvent = oPEvt || window.event, nChr = oEvent.charCode;
@@ -215,5 +216,14 @@ Leap.loop({'frameEventName':'deviceFrame'},function (frame) {
         togglePause(finger.tipPosition);
       }
     }
-  }
+  }}
+
+var controller = new Leap.Controller({
+  host: '127.0.0.1',
+  port: 6437,
+  frameEventName: 'animationFrame',
+  useAllPlugins: true
 });
+controller.connect();
+
+setInterval(mainLoop, 30);

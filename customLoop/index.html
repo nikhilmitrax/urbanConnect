@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+    <script>
+    var controller = new Leap.Controller({
+      host: '127.0.0.1',
+      port: 6437,
+      frameEventName: 'animationFrame',
+      useAllPlugins: true
+    });
+    controller.connect();
+    function probeFrame(){
+      console.log(controller.frame(0))
+    }
+    setInterval(probeFrame, 100);
+    </script>  
+</head>
+
+<body>
+
+
+  <div id="debug-box" class="nothing" style="background-color: #f2f2f2;width: 200;height: 100;position: fixed;right: 10;top: 50;">-41,128,201</div>
+
+  <div id="stage" style="background-color:rgb(191,191,191); width:1400; height:600;position: fixed;">
+    <div id="box1" class="interactable-zoom" style="background-color: #f2f2f2;width: 100;height: 100;position: absolute;left: 10;top: 10;">Box 1</div>
+    <div id="box2" class="interactable-zoom" style="background-color: #D64A4A;width: 100;height: 100;position: absolute;left: 200;top: 10;">Box 2</div>
+    <div id="box3" class="interactable-zoom" style="background-color: #D64A4A;width: 100;height: 100;position: absolute;left: 500;top: 10;">Box 3</div> 
+
+  </div>
+  <script type="text/javascript" src="./main.js"></script>
+  <link href="/style.css">
+</body>
+
+</html>
