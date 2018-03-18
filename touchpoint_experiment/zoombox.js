@@ -1,41 +1,44 @@
 var stageWidth = 800;
 var stageHeight = 600;
 
-var A = [-101, 256, -25.2];
-var B = [46.8, 236, -24.5];
-var C = [34, 112, -1.78];
-
 var center = [-38.73, 222.82, -69.34];
 var left = [-122.45, 223.316, -67.16];
 var right = [51.34, 210.04, -49.54];
 var wTop = [-30.84, 283.901, -76.87];
 var bottom = [-35.67, 156.373, -58.08];
 
-var boxWidth = right[0] - left[0];
-var boxHeight = wTop[1] - bottom[1] - 100;
+var boxWidth;
+var boxHeight;
 
-console.log(wTop, bottom);
-console.log("Box WH", boxWidth, boxHeight);
-function computeCalibration(X) {
-  // given the global (leap x,y,z), calculate the screen relative x,y,z
-  var normalVector = Leap.vec3.create();
-  var AB = Leap.vec3.create();
-  var AC = Leap.vec3.create();
-  var BX = Leap.vec3.create();
-  var distanceVector = Leap.vec3.create();
-
-  var xyCoord = Leap.vec3.create();
-
-  Leap.vec3.subtract(AB, B, A);
-  Leap.vec3.subtract(AC, C, A);
-  Leap.vec3.subtract(BX, X, B);
-  Leap.vec3.cross(normalVector, AB, AC);
-  Leap.vec3.dot(distanceVector, BX, normalVector);
-
-  Leap.vec3.subtract(xyCoord, BX, distanceVector);
-
-  return xyCoord;
+var widthScaler = 1.136;
+var heightScaler = 1.5;
+function computeWidths() {
+  boxWidth = right[0] - left[0] + 1000;
+  boxHeight = wTop[1] - bottom[1] + 1000;
+  console.log("Box WH", boxWidth, boxHeight);
 }
+computeWidths();
+
+// function computeCalibration(X) {
+//   // given the global (leap x,y,z), calculate the screen relative x,y,z
+//   var normalVector = Leap.vec3.create();
+//   var AB = Leap.vec3.create();
+//   var AC = Leap.vec3.create();
+//   var BX = Leap.vec3.create();
+//   var distanceVector = Leap.vec3.create();
+
+//   var xyCoord = Leap.vec3.create();
+
+//   Leap.vec3.subtract(AB, B, A);
+//   Leap.vec3.subtract(AC, C, A);
+//   Leap.vec3.subtract(BX, X, B);
+//   Leap.vec3.cross(normalVector, AB, AC);
+//   Leap.vec3.dot(distanceVector, BX, normalVector);
+
+//   Leap.vec3.subtract(xyCoord, BX, distanceVector);
+
+//   return xyCoord;
+// }
 function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
 }
@@ -163,6 +166,7 @@ buildBoxes();
 
 var leap = new Leap.Controller();
 leap.connect();
+
 leap.use("screenPosition", {
   positioning: function(positionVec3) {
     // Arguments for Leap.vec3 are (out, a, b)
@@ -188,7 +192,8 @@ var tip = new Konva.Circle({
   visible: true
 });
 
-calibrators = [[400, 300], [400, 0], [400, 600], [0, 300], [800, 300]];
+// calibrators = [[400, 300], [400, 0], [400, 600], [0, 300], [800, 300]];
+calibrators = [[400, 300]];
 
 for (const coord of calibrators) {
   var centerer = new Konva.Circle({
@@ -208,7 +213,6 @@ for (const coord of calibrators) {
 tipLayer.add(tip);
 
 var overlay = new Konva.Text({ text: "Overlay", width: 100, height: 200, x: 690, y: 10 });
-
 overlayLayer = new Konva.Layer();
 overlayLayer.add(overlay);
 var anim = new Konva.Animation(
@@ -228,45 +232,53 @@ var anim = new Konva.Animation(
         // var pointable = leapFrame.pointables[p];
         var pointable = leapFrame.hands[0].indexFinger;
         iBox.center = center;
-        iBox.width = boxWidth;
-        iBox.height = boxHeight;
-        var pos = iBox.normalizePoint(pointable.stabilizedTipPosition, true);
+        // iBox.width = boxWidth;
+        // iBox.height = boxHeight;
+        var pos = iBox.normalizePoint(pointable.tipPosition, true);
 
-        console.log(`Box ${iBox.width}, ${iBox.height}`);
-        console.log(pointable.stabilizedTipPosition);
-        var hand = pointable.screenPosition();
+        // custom scaling for the point.
 
-        var displayCoords = [pos[0].toPrecision(2), pos[1].toPrecision(2), pos[2].toPrecision(2)];
+        posWRTCenter = [pos[0] - 0.5, pos[1] - 0.5];
+        posWRTCenter = [posWRTCenter[0] * widthScaler, posWRTCenter[1] * heightScaler];
+        posWRTCenter = [posWRTCenter[0] + 0.5, posWRTCenter[1] + 0.5];
+        // console.log(`Box ${iBox.width}, ${iBox.height}`);
+        // console.log(pointable.tipPosition);
+
+        var displayCoords = [posWRTCenter[0].toPrecision(2), posWRTCenter[1].toPrecision(2)];
         overlay.text(`FPS : ${Math.floor(frameRate)}, coords: ${displayCoords}`);
 
-        tip.setX(pos[0] * stageWidth);
-        tip.setY(stageHeight - pos[1] * stageHeight);
+        tip.setX(posWRTCenter[0] * stageWidth);
+        tip.setY(stageHeight - posWRTCenter[1] * stageHeight);
       }
     }
 
     // check collisions
     tipBoundingBox = tip.getClientRect();
-    layer.children.each(group => {
-      boundingBox = group.getClientRect();
+    layer.children.each(box => {
+      boundingBox = box.getClientRect();
       if (haveIntersection(tipBoundingBox, boundingBox)) {
-        // console.log("Intersecting with", group.name());
-        group.fill("red");
-        group.opacity(1);
-        group.scaleX(1.2);
-        group.scaleY(1.2);
+        // console.log("Intersecting with", box.name());
+        box.fill("red");
+        box.opacity(1);
+        box.scaleX(1.2);
+        box.scaleY(1.2);
       } else {
-        group.fill("green");
-        group.opacity(0.2);
-
-        group.scaleX(1);
-        group.scaleY(1);
+        box.fill("green");
+        box.opacity(0.2);
+        box.scaleX(1);
+        box.scaleY(1);
       }
     });
   },
-  [tipLayer, layer, overlayLayer]
+  [layer, overlayLayer, tipLayer]
 );
 
 stage.add(layer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
+let calibrationLevel = 0;
+
+function calibrateScreen() {
+  const calibrationOrder = [wTop, left, center, right, bottom];
+}
