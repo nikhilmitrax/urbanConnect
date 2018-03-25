@@ -5,15 +5,6 @@
     <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
     <script src="https://js.leapmotion.com/leap-plugins-0.1.12.min.js"></script>
     <script src='exfiltrator.js'></script>
-    <script>
-        function exfiltrateMouse(event) {
-            dataset = { timestamp: Date.now(), x: event.clientX, y: event.clientY }
-            exfiltrateData(dataset)
-
-        }
-
-        document.addEventListener("click", exfiltrateMouse);
-    </script>
     <meta charset="utf-8">
     <title>Konva Zoom Image on Hover Demo</title>
     <style>
@@ -36,11 +27,20 @@
             background-color: beige
         }
     </style>
+    <script>
+        function exfiltrateMouse(event) {
+            dataset = { timestamp: Date.now(), x: event.clientX, y: event.clientY }
+            exfiltrateData(dataset)
+
+        }
+
+        document.addEventListener("click", exfiltrateMouse);
+    </script>
 </head>
 
 <body>
     <div id="container" class="center-div"></div>
-    <script src='zoombox.js'></script>
+    <script src='../touchpoint_experiment/zoombox.js'></script>
 
 </body>
 

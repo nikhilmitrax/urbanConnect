@@ -2,43 +2,12 @@ var stageWidth = 800;
 var stageHeight = 600;
 
 var center = [-38.73, 222.82, -69.34];
-var left = [-122.45, 223.316, -67.16];
-var right = [51.34, 210.04, -49.54];
-var wTop = [-30.84, 283.901, -76.87];
-var bottom = [-35.67, 156.373, -58.08];
 
-var boxWidth;
-var boxHeight;
+var widthScaler = 0.9;
+var heightScaler = 1;
 
-var widthScaler = 1.136;
-var heightScaler = 1.5;
-function computeWidths() {
-  boxWidth = right[0] - left[0] + 1000;
-  boxHeight = wTop[1] - bottom[1] + 1000;
-  console.log("Box WH", boxWidth, boxHeight);
-}
-computeWidths();
+var tipPosition;
 
-// function computeCalibration(X) {
-//   // given the global (leap x,y,z), calculate the screen relative x,y,z
-//   var normalVector = Leap.vec3.create();
-//   var AB = Leap.vec3.create();
-//   var AC = Leap.vec3.create();
-//   var BX = Leap.vec3.create();
-//   var distanceVector = Leap.vec3.create();
-
-//   var xyCoord = Leap.vec3.create();
-
-//   Leap.vec3.subtract(AB, B, A);
-//   Leap.vec3.subtract(AC, C, A);
-//   Leap.vec3.subtract(BX, X, B);
-//   Leap.vec3.cross(normalVector, AB, AC);
-//   Leap.vec3.dot(distanceVector, BX, normalVector);
-
-//   Leap.vec3.subtract(xyCoord, BX, distanceVector);
-
-//   return xyCoord;
-// }
 function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
 }
@@ -167,16 +136,16 @@ buildBoxes();
 var leap = new Leap.Controller();
 leap.connect();
 
-leap.use("screenPosition", {
-  positioning: function(positionVec3) {
-    // Arguments for Leap.vec3 are (out, a, b)
-    [
-      Leap.vec3.subtract(positionVec3, positionVec3, this.frame.interactionBox.center),
-      Leap.vec3.divide(positionVec3, positionVec3, this.frame.interactionBox.size),
-      Leap.vec3.multiply(positionVec3, positionVec3, [window.innerWidth, window.innerHeight, 0])
-    ];
-  }
-});
+// leap.use("screenPosition", {
+//   positioning: function(positionVec3) {
+//     // Arguments for Leap.vec3 are (out, a, b)
+//     [
+//       Leap.vec3.subtract(positionVec3, positionVec3, this.frame.interactionBox.center),
+//       Leap.vec3.divide(positionVec3, positionVec3, this.frame.interactionBox.size),
+//       Leap.vec3.multiply(positionVec3, positionVec3, [window.innerWidth, window.innerHeight, 0])
+//     ];
+//   }
+// });
 
 var tipLayer = new Konva.Layer();
 
@@ -193,7 +162,7 @@ var tip = new Konva.Circle({
 });
 
 // calibrators = [[400, 300], [400, 0], [400, 600], [0, 300], [800, 300]];
-calibrators = [[400, 300]];
+calibrators = [[stageWidth / 2, stageHeight / 2]];
 
 for (const coord of calibrators) {
   var centerer = new Konva.Circle({
@@ -228,13 +197,13 @@ var anim = new Konva.Animation(
       var iBox = leapFrame.interactionBox;
 
       if (leapFrame.hands.length > 0) {
-        p = 0;
         // var pointable = leapFrame.pointables[p];
         var pointable = leapFrame.hands[0].indexFinger;
+        tipPosition = pointable.tipPosition;
         iBox.center = center;
         // iBox.width = boxWidth;
         // iBox.height = boxHeight;
-        var pos = iBox.normalizePoint(pointable.tipPosition, true);
+        var pos = iBox.normalizePoint(tipPosition, true);
 
         // custom scaling for the point.
 
@@ -244,8 +213,7 @@ var anim = new Konva.Animation(
         // console.log(`Box ${iBox.width}, ${iBox.height}`);
         // console.log(pointable.tipPosition);
 
-        var displayCoords = [posWRTCenter[0].toPrecision(2), posWRTCenter[1].toPrecision(2)];
-        overlay.text(`FPS : ${Math.floor(frameRate)}, coords: ${displayCoords}`);
+        overlay.text(`FPS : ${Math.floor(frameRate)}, coords: ${pos[2]}`);
 
         tip.setX(posWRTCenter[0] * stageWidth);
         tip.setY(stageHeight - posWRTCenter[1] * stageHeight);
@@ -256,7 +224,7 @@ var anim = new Konva.Animation(
     tipBoundingBox = tip.getClientRect();
     layer.children.each(box => {
       boundingBox = box.getClientRect();
-      if (haveIntersection(tipBoundingBox, boundingBox)) {
+      if (haveIntersection(tipBoundingBox, boundingBox) && pos[2] < 1) {
         // console.log("Intersecting with", box.name());
         box.fill("red");
         box.opacity(1);
@@ -277,8 +245,12 @@ stage.add(layer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
-let calibrationLevel = 0;
 
-function calibrateScreen() {
-  const calibrationOrder = [wTop, left, center, right, bottom];
-}
+document.onkeypress = function(oPEvt) {
+  var oEvent = oPEvt || window.event,
+    nChr = oEvent.charCode;
+  if (nChr == 99) {
+    center = tipPosition;
+    console.log("Center set to ", tipPosition);
+  }
+};
