@@ -129,7 +129,7 @@ function buildBoxes() {
     width: 200,
     height: 200,
     name: "box 6",
-    fill: "green",
+    fill: "grey",
     stroke: "black",
     opacity: 0.4,
     strokeWidth: 4
@@ -151,7 +151,7 @@ function buildBoxes() {
     width: 200,
     height: 200,
     name: "box 7",
-    fill: "green",
+    fill: "grey",
     stroke: "black",
     opacity: 0.4,
     strokeWidth: 4
@@ -173,7 +173,7 @@ function buildBoxes() {
     width: 200,
     height: 200,
     name: "box 9",
-    fill: "green",
+    fill: "grey",
     stroke: "black",
     opacity: 0.4,
     strokeWidth: 4
@@ -195,7 +195,7 @@ function buildBoxes() {
     width: 200,
     height: 200,
     name: "box 9",
-    fill: "green",
+    fill: "grey",
     stroke: "black",
     opacity: 0.4,
     strokeWidth: 4
