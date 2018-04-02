@@ -391,28 +391,23 @@ var anim = new Konva.Animation(
           case 1:
             interactionBox.x(boundingBox.x);
             interactionBox.y(boundingBox.y);
-            boundingBox.scaleX(1.5);
-            boundingBox.scaleY(1.5);
+
             break;
           case 2:
             interactionBox.x(boundingBox.x + boundingBox.width / 2);
             interactionBox.y(boundingBox.y);
-            boundingBox.scaleX(1.5);
-            boundingBox.scaleY(1.5);
             break;
           case 3:
             interactionBox.x(boundingBox.x);
             interactionBox.y(boundingBox.y + boundingBox.height / 2);
-            boundingBox.scaleX(1.5);
-            boundingBox.scaleY(1.5);
             break;
           case 4:
             interactionBox.x(boundingBox.x + boundingBox.width / 2);
             interactionBox.y(boundingBox.y + boundingBox.height / 2);
-            boundingBox.scaleX(1.5);
-            boundingBox.scaleY(1.5);
             break;
         }
+        interactionBox.scaleX(1.3);
+        interactionBox.scaleY(1.3);
         interactionBox.fill("red");
         interactionBox.opacity(1);
       } else {
@@ -422,6 +417,8 @@ var anim = new Konva.Animation(
 
         interactionBox.fill("green");
         interactionBox.opacity(0.8);
+        interactionBox.scaleX(1);
+        interactionBox.scaleY(1);
       }
     });
   },
