@@ -3,8 +3,8 @@ var stageHeight = 800;
 
 var center = [-38.73, 222.82, -69.34];
 
-var widthScaler = 0.9;
-var heightScaler = 1;
+var widthScaler = 1.3;
+var heightScaler = 1.3;
 
 var tipPosition;
 

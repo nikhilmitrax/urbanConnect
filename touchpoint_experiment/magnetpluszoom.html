@@ -7,12 +7,12 @@
     <script src='exfiltrator.js'></script>
     <script>
         function exfiltrateMouse(event) {
-            dataset = { timestamp: Date.now(), x: event.clientX, y: event.clientY }
+            dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY }
             exfiltrateData(dataset)
 
         }
 
-        document.addEventListener("click", exfiltrateMouse);
+        document.addEventListener("touchstart", exfiltrateMouse);
     </script>
     <meta charset="utf-8">
     <title>Konva Zoom Image on Hover Demo</title>
