@@ -8,8 +8,38 @@ var heightScaler = 1;
 
 var tipPosition;
 
+var interactionBoxOpacity = 0;
+
+// mapping from the name of the interaction box to the movement box.
+var boxInteractionMapping = {};
 function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
+}
+
+function getQuadrant(pointer, box) {
+  // 1 - Top Left
+  // 2 - Top Right
+  // 3 - Bottom Left
+  // 4 - Bottom Right
+
+  boxX = box.x + box.width / 2;
+  boxY = box.y + box.height / 2;
+  if (pointer.x < boxX && pointer.y < boxY) {
+    return 1;
+  }
+
+  if (pointer.x >= boxX && pointer.y < boxY) {
+    return 2;
+  }
+  if (pointer.x < boxX && pointer.y > boxY) {
+    return 3;
+  }
+
+  if (pointer.x > boxX && pointer.y > boxY) {
+    return 4;
+  }
+
+  return 0;
 }
 
 function buildBoxes() {
@@ -18,10 +48,10 @@ function buildBoxes() {
     y: 50,
     width: 200,
     height: 200,
-    name: "box 1",
+    name: "boxBG1",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect1 = new Konva.Rect({
@@ -29,21 +59,23 @@ function buildBoxes() {
     y: 100,
     width: 100,
     height: 100,
-    name: "box 1",
+    name: "box1",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG1"] = rect1;
   var rectbg2 = new Konva.Rect({
     x: 300,
     y: 50,
     width: 200,
     height: 200,
-    name: "box 2",
+    name: "boxBG2",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect2 = new Konva.Rect({
@@ -51,21 +83,24 @@ function buildBoxes() {
     y: 100,
     width: 100,
     height: 100,
-    name: "box 2",
+    name: "box2",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG2"] = rect2;
+
   var rectbg3 = new Konva.Rect({
     x: 550,
     y: 50,
     width: 200,
     height: 200,
-    name: "box 3",
+    name: "boxBG3",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect3 = new Konva.Rect({
@@ -73,21 +108,24 @@ function buildBoxes() {
     y: 100,
     width: 100,
     height: 100,
-    name: "box 3",
+    name: "box3",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG3"] = rect3;
+
   var rectbg4 = new Konva.Rect({
     x: 50,
     y: 300,
     width: 200,
     height: 200,
-    name: "box 4",
+    name: "boxBG4",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect4 = new Konva.Rect({
@@ -95,21 +133,24 @@ function buildBoxes() {
     y: 350,
     width: 100,
     height: 100,
-    name: "box 4",
+    name: "box4",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG4"] = rect4;
+
   var rectbg5 = new Konva.Rect({
     x: 300,
     y: 300,
     width: 200,
     height: 200,
-    name: "box 4",
+    name: "boxBG5",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect5 = new Konva.Rect({
@@ -117,21 +158,24 @@ function buildBoxes() {
     y: 350,
     width: 100,
     height: 100,
-    name: "box 5",
+    name: "box5",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG5"] = rect5;
+
   var rectbg6 = new Konva.Rect({
     x: 550,
     y: 300,
     width: 200,
     height: 200,
-    name: "box 6",
+    name: "boxBG6",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect6 = new Konva.Rect({
@@ -139,21 +183,24 @@ function buildBoxes() {
     y: 350,
     width: 100,
     height: 100,
-    name: "box 6",
+    name: "box6",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG6"] = rect6;
+
   var rectbg7 = new Konva.Rect({
     x: 50,
     y: 550,
     width: 200,
     height: 200,
-    name: "box 7",
+    name: "boxBG7",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect7 = new Konva.Rect({
@@ -161,21 +208,24 @@ function buildBoxes() {
     y: 600,
     width: 100,
     height: 100,
-    name: "box 7",
+    name: "box7",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG7"] = rect7;
+
   var rectbg8 = new Konva.Rect({
     x: 300,
     y: 550,
     width: 200,
     height: 200,
-    name: "box 9",
+    name: "boxBG8",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect8 = new Konva.Rect({
@@ -183,21 +233,24 @@ function buildBoxes() {
     y: 600,
     width: 100,
     height: 100,
-    name: "box 8",
+    name: "box8",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+
+  boxInteractionMapping["boxBG8"] = rect8;
+
   var rectbg9 = new Konva.Rect({
     x: 550,
     y: 550,
     width: 200,
     height: 200,
-    name: "box 9",
+    name: "boxBG9",
     fill: "grey",
     stroke: "black",
-    opacity: 0.4,
+    opacity: interactionBoxOpacity,
     strokeWidth: 4
   });
   var rect9 = new Konva.Rect({
@@ -205,12 +258,14 @@ function buildBoxes() {
     y: 600,
     width: 100,
     height: 100,
-    name: "box 9",
+    name: "box9",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
+  boxInteractionMapping["boxBG9"] = rect9;
+
   // add the shape to the layer
   bgLayer.add(rectbg1);
   layer.add(rect1);
@@ -254,7 +309,7 @@ var tip = new Konva.Circle({
   radius: 10,
   fill: "red",
   stroke: "black",
-  opacity: 0.4,
+  opacity: 1,
   strokeWidth: 2,
   opacity: 0.3,
   visible: true
@@ -321,27 +376,52 @@ var anim = new Konva.Animation(
 
     // check collisions
     tipBoundingBox = tip.getClientRect();
-    layer.children.each(box => {
+    bgLayer.children.each(box => {
       boundingBox = box.getClientRect();
-      if (haveIntersection(tipBoundingBox, boundingBox) && pos[2] < 1) {
+
+      if (haveIntersection(tipBoundingBox, boundingBox)) {
         // console.log("Intersecting with", box.name());
-        box.fill("red");
-        box.opacity(1);
-        box.scaleX(1.2);
-        box.scaleY(1.2);
+        // console.log("tip", tipBoundingBox.x, tipBoundingBox.y);
+        // console.log("box", boundingBox.x, boundingBox.y);
+        // console.log(getQuadrant(tipBoundingBox, boundingBox));
+        var quadrant = getQuadrant(tipBoundingBox, boundingBox);
+        interactionBox = boxInteractionMapping[box.name()];
+
+        switch (quadrant) {
+          case 1:
+            interactionBox.x(boundingBox.x);
+            interactionBox.y(boundingBox.y);
+            break;
+          case 2:
+            interactionBox.x(boundingBox.x + boundingBox.width / 2);
+            interactionBox.y(boundingBox.y);
+            break;
+          case 3:
+            interactionBox.x(boundingBox.x);
+            interactionBox.y(boundingBox.y + boundingBox.height / 2);
+            break;
+          case 4:
+            interactionBox.x(boundingBox.x + boundingBox.width / 2);
+            interactionBox.y(boundingBox.y + boundingBox.height / 2);
+            break;
+        }
+        interactionBox.fill("red");
+        interactionBox.opacity(1);
       } else {
-        box.fill("green");
-        box.opacity(0.2);
-        box.scaleX(1);
-        box.scaleY(1);
+        interactionBox = boxInteractionMapping[box.name()];
+        interactionBox.x(boundingBox.x + boundingBox.width / 4);
+        interactionBox.y(boundingBox.y + boundingBox.height / 4);
+
+        interactionBox.fill("green");
+        interactionBox.opacity(0.8);
       }
     });
   },
   [layer, overlayLayer, tipLayer]
 );
 
-stage.add(layer);
 stage.add(bgLayer);
+stage.add(layer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
