@@ -13,6 +13,17 @@ function haveIntersection(r1, r2) {
 }
 
 function buildBoxes() {
+  var rectbg1 = new Konva.Rect({
+    x: 50,
+    y: 50,
+    width: 200,
+    height: 200,
+    name: "box 1",
+    fill: "grey",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect1 = new Konva.Rect({
     x: 100,
     y: 100,
@@ -24,7 +35,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg2 = new Konva.Rect({
+    x: 300,
+    y: 50,
+    width: 200,
+    height: 200,
+    name: "box 2",
+    fill: "grey",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect2 = new Konva.Rect({
     x: 350,
     y: 100,
@@ -36,7 +57,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg3 = new Konva.Rect({
+    x: 550,
+    y: 50,
+    width: 200,
+    height: 200,
+    name: "box 3",
+    fill: "grey",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect3 = new Konva.Rect({
     x: 600,
     y: 100,
@@ -48,7 +79,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg4 = new Konva.Rect({
+    x: 50,
+    y: 300,
+    width: 200,
+    height: 200,
+    name: "box 4",
+    fill: "grey",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect4 = new Konva.Rect({
     x: 100,
     y: 350,
@@ -60,7 +101,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg5 = new Konva.Rect({
+    x: 300,
+    y: 300,
+    width: 200,
+    height: 200,
+    name: "box 4",
+    fill: "grey",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect5 = new Konva.Rect({
     x: 350,
     y: 350,
@@ -72,7 +123,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg6 = new Konva.Rect({
+    x: 550,
+    y: 300,
+    width: 200,
+    height: 200,
+    name: "box 6",
+    fill: "green",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect6 = new Konva.Rect({
     x: 600,
     y: 350,
@@ -84,7 +145,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg7 = new Konva.Rect({
+    x: 50,
+    y: 550,
+    width: 200,
+    height: 200,
+    name: "box 7",
+    fill: "green",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect7 = new Konva.Rect({
     x: 100,
     y: 600,
@@ -96,7 +167,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg8 = new Konva.Rect({
+    x: 300,
+    y: 550,
+    width: 200,
+    height: 200,
+    name: "box 9",
+    fill: "green",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect8 = new Konva.Rect({
     x: 350,
     y: 600,
@@ -108,7 +189,17 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+  var rectbg9 = new Konva.Rect({
+    x: 550,
+    y: 550,
+    width: 200,
+    height: 200,
+    name: "box 9",
+    fill: "green",
+    stroke: "black",
+    opacity: 0.4,
+    strokeWidth: 4
+  });
   var rect9 = new Konva.Rect({
     x: 600,
     y: 600,
@@ -121,23 +212,23 @@ function buildBoxes() {
     strokeWidth: 4
   });
   // add the shape to the layer
-
+  layer.add(rectbg1);
   layer.add(rect1);
-
+  layer.add(rectbg2);
   layer.add(rect2);
-
+  layer.add(rectbg3);
   layer.add(rect3);
-
+  layer.add(rectbg4);
   layer.add(rect4);
-
+  layer.add(rectbg5);
   layer.add(rect5);
-
+  layer.add(rectbg6);
   layer.add(rect6);
-
+  layer.add(rectbg7);
   layer.add(rect7);
-
+  layer.add(rectbg8);
   layer.add(rect8);
-
+  layer.add(rectbg9);
   layer.add(rect9);
 }
 
