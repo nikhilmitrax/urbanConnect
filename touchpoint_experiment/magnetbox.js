@@ -212,23 +212,23 @@ function buildBoxes() {
     strokeWidth: 4
   });
   // add the shape to the layer
-  layer.add(rectbg1);
+  bgLayer.add(rectbg1);
   layer.add(rect1);
-  layer.add(rectbg2);
+  bgLayer.add(rectbg2);
   layer.add(rect2);
-  layer.add(rectbg3);
+  bgLayer.add(rectbg3);
   layer.add(rect3);
-  layer.add(rectbg4);
+  bgLayer.add(rectbg4);
   layer.add(rect4);
-  layer.add(rectbg5);
+  bgLayer.add(rectbg5);
   layer.add(rect5);
-  layer.add(rectbg6);
+  bgLayer.add(rectbg6);
   layer.add(rect6);
-  layer.add(rectbg7);
+  bgLayer.add(rectbg7);
   layer.add(rect7);
-  layer.add(rectbg8);
+  bgLayer.add(rectbg8);
   layer.add(rect8);
-  layer.add(rectbg9);
+  bgLayer.add(rectbg9);
   layer.add(rect9);
 }
 
@@ -239,21 +239,12 @@ var stage = new Konva.Stage({
 });
 
 var layer = new Konva.Layer();
+var bgLayer = new Konva.Layer();
+
 buildBoxes();
 
 var leap = new Leap.Controller();
 leap.connect();
-
-// leap.use("screenPosition", {
-//   positioning: function(positionVec3) {
-//     // Arguments for Leap.vec3 are (out, a, b)
-//     [
-//       Leap.vec3.subtract(positionVec3, positionVec3, this.frame.interactionBox.center),
-//       Leap.vec3.divide(positionVec3, positionVec3, this.frame.interactionBox.size),
-//       Leap.vec3.multiply(positionVec3, positionVec3, [window.innerWidth, window.innerHeight, 0])
-//     ];
-//   }
-// });
 
 var tipLayer = new Konva.Layer();
 
@@ -350,6 +341,7 @@ var anim = new Konva.Animation(
 );
 
 stage.add(layer);
+stage.add(bgLayer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
