@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <script src="https://cdn.rawgit.com/konvajs/konva/1.7.6/konva.min.js"></script>
+    <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="https://js.leapmotion.com/leap-plugins-0.1.12.min.js"></script>
+    <script src='exfiltrator.js'></script>
+    <script>
+        function exfiltrateMouse(event) {
+            dataset = { timestamp: Date.now(), x: event.clientX, y: event.clientY }
+            exfiltrateData(dataset)
+
+        }
+
+        document.addEventListener("click", exfiltrateMouse);
+    </script>
+    <meta charset="utf-8">
+    <title>Konva Zoom Image on Hover Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F0F0F0;
+        }
+
+        .center-div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 800px;
+            height: 800px;
+            background-color: beige
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="center-div"></div>
+    <script src='magnetpluszoom.js'></script>
+
+</body>
+
+</html>
