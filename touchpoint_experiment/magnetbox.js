@@ -1,14 +1,3 @@
-var stageWidth = 800;
-var stageHeight = 800;
-
-var center = [-38.73, 222.82, -69.34];
-
-var widthScaler = 0.9;
-var heightScaler = 1;
-
-var tipPosition;
-
-var interactionBoxOpacity = 0;
 
 // mapping from the name of the interaction box to the movement box.
 var boxInteractionMapping = {};
