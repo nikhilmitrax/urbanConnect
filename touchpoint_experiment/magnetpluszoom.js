@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-var stageWidth = 800;
-var stageHeight = 800;
-
-var center = [-38.73, 222.82, -69.34];
-
-var widthScaler = 1.3;
-var heightScaler = 1.3;
-
-var tipPosition;
-
-var interactionBoxOpacity = 0;
-=======
->>>>>>> 445e24ccb93d01a9c3bc0636d1768b5544607a0b
-
 // mapping from the name of the interaction box to the movement box.
 var boxInteractionMapping = {};
 function haveIntersection(r1, r2) {
