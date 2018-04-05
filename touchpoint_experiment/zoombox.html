@@ -9,7 +9,7 @@
     <script src='constants.js'></script>
     <script>
         function exfiltrateMouse(event) {
-            dataset = { timestamp: Date.now(), x: event.clientX, y: event.clientY }
+            dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY }
             exfiltrateData(dataset)
 
         }
