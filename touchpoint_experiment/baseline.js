@@ -214,7 +214,6 @@ var anim = new Konva.Animation(
         var pos = iBox.normalizePoint(tipPosition, true);
 
         // custom scaling for the point.
-
         posWRTCenter = [pos[0] - 0.5, pos[1] - 0.5];
         posWRTCenter = [posWRTCenter[0] * widthScaler, posWRTCenter[1] * heightScaler];
         posWRTCenter = [posWRTCenter[0] + 0.5, posWRTCenter[1] + 0.5];
@@ -236,13 +235,9 @@ var anim = new Konva.Animation(
         // console.log("Intersecting with", box.name());
         box.fill("red");
         box.opacity(1);
-        box.scaleX(1.2);
-        box.scaleY(1.2);
       } else {
         box.fill("green");
         box.opacity(0.2);
-        box.scaleX(1);
-        box.scaleY(1);
       }
     });
   },

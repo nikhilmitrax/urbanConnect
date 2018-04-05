@@ -1,96 +1,49 @@
-<div id="stage" style="background-color:rgb(250,235,200); width:800px; height:600; left:400;margin: 0 auto;"></div>
-<script src="Leap.min.js"></script>
-<script src="https://cdn.rawgit.com/konvajs/konva/1.7.6/konva.min.js"></script>
-<script>
-    var stageWidth = 800;
-    var stageHeight = 600;
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Experiment</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    var tips = new Array(10);
-
-    var stage = new Konva.Stage({
-        container: 'stage',
-        width: stageWidth,
-        height: stageHeight
-    });
-
-    var leap = new Leap.Controller();
-    leap.connect();
-
-    var layer = new Konva.Layer();
-
-    //Make ten circles to use as finger tips
-    for (var t = 0; t < 10; t++) {
-        var tip = new Konva.Circle({
-            x: 239,
-            y: 75,
-            radius: 5,
-            fill: 'green',
-            stroke: 'black',
-            strokeWidth: 2,
-            opacity: .5,
-            visible: false
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+   <div class="container">
+       
+   </div>
+    <div class="container-fluid">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-3">Choose the Condition</h1>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="baseline.html" role="button">Baseline</a>
+                </p>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="magnetbox.html" role="button">MagnetBox</a>
+                </p>
+                
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="magnetpluszoom.html" role="button">MagnetPlusZoom</a>
+                </p>
+                
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="zoombox.html" role="button">ZoomBox</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#navId a').click(e => {
+            e.preventDefault();
+            $(this).tab('show');
         });
-        tips[t] = tip;
-        layer.add(tip);
-    }
-
-    var text = new Konva.Text({
-        x: 25,
-        y: 15,
-        text: 'Simple Text',
-        fontSize: 12,
-        fontFamily: 'Calibri',
-        fill: 'green'
-    });
-    var textLayer = new Konva.Layer();
-    textLayer.add(text)
-
-    // add the layer to the stage
-    stage.add(layer);
-    stage.add(textLayer);
-
-    var anim = new Konva.Animation(function (frame) {
-        var time = frame.time,
-            timeDiff = frame.timeDiff,
-            frameRate = frame.frameRate;
-
-        // update finger tip display with data from latest frame
-        var tipPointer = 0;
-        var leapFrame = leap.frame();
-        if (leapFrame.valid) {
-            var iBox = leapFrame.interactionBox;
-            if (leapFrame.pointables.length > 0) {
-                p = 0;
-                var pointable = leapFrame.pointables[p];
-
-                var pos = iBox.normalizePoint(pointable.tipPosition, true);
-                tips[tipPointer].setX(pos[0] * stageWidth - 10);
-                tips[tipPointer].setY(stageHeight - pos[1] * stageHeight - 10);
-                tips[tipPointer].setVisible(true);
-
-
-                var tpos = pointable.tipPosition
-                text.x(300);
-                text.y(399);
-                text.text(`(${tpos[0].toPrecision(3)}, ${tpos[1].toPrecision(3)}, ${tpos[2].toPrecision(3)})`)
-                // console.log(textLayer.x())
-                if (pointable.touchZone == "hovering") {
-                    tips[tipPointer].setOpacity(.375 - pointable.touchDistance * .2);
-                    tips[tipPointer].fill('rgb(0,128,0)');
-                } else if (pointable.touchZone == "touching") {
-                    console.log("touching")
-                    tips[tipPointer].setOpacity(1);
-                    tips[tipPointer].fill('rgb(128,0,0)');
-                } else {
-                    tips[tipPointer].setOpacity(.1);
-                    tips[tipPointer].fill('rgb(0,0,128)');
-
-                }
-                if (tipPointer < 9) tipPointer++;
-            }
-            while (tipPointer <= 9) tips[tipPointer++].setVisible(false);
-        }
-    }, [layer, textLayer]);
-
-    anim.start();
-</script>
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
