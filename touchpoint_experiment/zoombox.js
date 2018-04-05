@@ -236,8 +236,8 @@ var anim = new Konva.Animation(
         // console.log("Intersecting with", box.name());
         box.fill("red");
         box.opacity(1);
-        box.scaleX(1.2);
-        box.scaleY(1.2);
+        box.scaleX(1.5);
+        box.scaleY(1.5);
       } else {
         box.fill("green");
         box.opacity(0.2);
@@ -250,8 +250,8 @@ var anim = new Konva.Animation(
 );
 
 stage.add(layer);
-stage.add(tipLayer);
-stage.add(overlayLayer);
+//stage.add(tipLayer);
+//stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {

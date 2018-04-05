@@ -189,10 +189,10 @@ for (const coord of calibrators) {
 
 tipLayer.add(tip);
 
-var overlay = new Konva.Text({ text: "Overlay", width: 100, height: 200, x: 690, y: 10 });
-overlayLayer = new Konva.Layer();
-overlayLayer.add(overlay);
-var anim = new Konva.Animation(
+ var overlay = new Konva.Text({ text: "Overlay", width: 100, height: 200, x: 690, y: 10 });
+ overlayLayer = new Konva.Layer();
+ overlayLayer.add(overlay);
+ var anim = new Konva.Animation(
   function(frame) {
     var time = frame.time,
       timeDiff = frame.timeDiff,
@@ -245,8 +245,8 @@ var anim = new Konva.Animation(
 );
 
 stage.add(layer);
-stage.add(tipLayer);
-stage.add(overlayLayer);
+//stage.add(tipLayer);
+//stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {

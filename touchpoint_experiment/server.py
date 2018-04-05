@@ -20,7 +20,7 @@ def add_access_control_headers(response):
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/exfiltrate', methods=['POST'])
+@app.route('/touchpoint_experiment', methods=['POST'])
 def exfiltrateData():
 
     data = request.get_json()

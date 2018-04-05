@@ -414,8 +414,8 @@ var anim = new Konva.Animation(
 );
 
 stage.add(bgLayer);
-stage.add(layer);
-stage.add(tipLayer);
+//stage.add(layer);
+//stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
 
