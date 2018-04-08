@@ -1,11 +1,11 @@
 <html>
 
 <head>
+    <script src='constants.js'></script>
     <script src="https://cdn.rawgit.com/konvajs/konva/1.7.6/konva.min.js"></script>
     <script src="https://js.leapmotion.com/leap-0.6.4.js"></script>
     <script src="https://js.leapmotion.com/leap-plugins-0.1.12.min.js"></script>
     <script src='exfiltrator.js'></script>
-    <script src='constants.js'></script>
     <script>
         function exfiltrateMouse(event) {
             dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY }

@@ -1,4 +1,3 @@
-
 function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
 }
@@ -15,7 +14,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect2 = new Konva.Rect({
     x: 350,
     y: 100,
@@ -27,7 +26,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect3 = new Konva.Rect({
     x: 600,
     y: 100,
@@ -39,7 +38,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect4 = new Konva.Rect({
     x: 100,
     y: 350,
@@ -51,7 +50,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect5 = new Konva.Rect({
     x: 350,
     y: 350,
@@ -63,7 +62,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect6 = new Konva.Rect({
     x: 600,
     y: 350,
@@ -75,7 +74,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect7 = new Konva.Rect({
     x: 100,
     y: 600,
@@ -87,7 +86,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect8 = new Konva.Rect({
     x: 350,
     y: 600,
@@ -99,7 +98,7 @@ function buildBoxes() {
     opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect9 = new Konva.Rect({
     x: 600,
     y: 600,
@@ -250,8 +249,8 @@ var anim = new Konva.Animation(
 );
 
 stage.add(layer);
-//stage.add(tipLayer);
-//stage.add(overlayLayer);
+stage.add(tipLayer);
+stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {
