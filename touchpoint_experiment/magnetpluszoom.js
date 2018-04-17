@@ -186,6 +186,7 @@ function buildBoxes() {
     width: 200,
     height: 200,
     name: "boxBG7",
+    text:"7",
     fill: "grey",
     stroke: "black",
     opacity: interactionBoxOpacity,
@@ -414,8 +415,9 @@ var anim = new Konva.Animation(
 );
 
 stage.add(bgLayer);
-//stage.add(layer);
-//stage.add(tipLayer);
+stage.add(text);
+stage.add(layer);
+stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
 

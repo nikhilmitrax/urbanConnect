@@ -24,9 +24,11 @@ function buildBoxes() {
         width: 100,
         height: 100,
         name: coord,
+        text: '1',
+        fontSize: 30,
         fill: "green",
         stroke: "black",
-        opacity: 0.4,
+        opacity: 1,
         strokeWidth: 4
       })
     );
@@ -144,7 +146,7 @@ var anim = new Konva.Animation(
         box.scale({ x: zoomingFactor, y: zoomingFactor });
       } else {
         box.fill("green");
-        box.opacity(0.2);
+        box.opacity(1);
         box.scale({ x: 1, y: 1 });
         box.x(origX);
         box.y(origY);

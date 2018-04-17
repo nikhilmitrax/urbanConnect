@@ -8,9 +8,8 @@
     <script src='exfiltrator.js'></script>
     <script>
         function exfiltrateMouse(event) {
-            dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY }
+            dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY,page:magnetpluszoombox }
             exfiltrateData(dataset)
-
         }
 
         document.addEventListener("touchstart", exfiltrateMouse);

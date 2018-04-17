@@ -12,7 +12,7 @@ function buildBoxes() {
     name: "box 1",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -24,7 +24,7 @@ function buildBoxes() {
     name: "box 2",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -36,7 +36,7 @@ function buildBoxes() {
     name: "box 3",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -48,7 +48,7 @@ function buildBoxes() {
     name: "box 4",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -60,7 +60,7 @@ function buildBoxes() {
     name: "box 5",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -72,7 +72,7 @@ function buildBoxes() {
     name: "box 6",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -84,7 +84,7 @@ function buildBoxes() {
     name: "box 7",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -96,7 +96,7 @@ function buildBoxes() {
     name: "box 8",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   
@@ -108,7 +108,7 @@ function buildBoxes() {
     name: "box 9",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   // add the shape to the layer
@@ -163,7 +163,7 @@ var tip = new Konva.Circle({
   radius: 10,
   fill: "red",
   stroke: "black",
-  opacity: 0.4,
+  opacity: 1,
   strokeWidth: 2,
   opacity: 0.3,
   visible: true
@@ -179,7 +179,7 @@ for (const coord of calibrators) {
     radius: 10,
     fill: "blue",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 2,
     opacity: 0.3,
     visible: true
@@ -226,27 +226,13 @@ tipLayer.add(tip);
         tip.setY(stageHeight - posWRTCenter[1] * stageHeight);
       }
     }
-
-    // check collisions
-    tipBoundingBox = tip.getClientRect();
-    layer.children.each(box => {
-      boundingBox = box.getClientRect();
-      if (haveIntersection(tipBoundingBox, boundingBox) && pos[2] < 1) {
-        // console.log("Intersecting with", box.name());
-        box.fill("red");
-        box.opacity(1);
-      } else {
-        box.fill("green");
-        box.opacity(0.2);
-      }
-    });
   },
   [layer, overlayLayer, tipLayer]
 );
 
 stage.add(layer);
-//stage.add(tipLayer);
-//stage.add(overlayLayer);
+stage.add(tipLayer);
+stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {
