@@ -2,18 +2,6 @@ function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
 }
 
-const rectangles = {
-  "box 1": [100, 100],
-  "box 2": [350, 100],
-  "box 3": [600, 100],
-  "box 4": [100, 350],
-  "box 5": [350, 350],
-  "box 6": [600, 350],
-  "box 7": [100, 600],
-  "box 8": [350, 600],
-  "box 9": [600, 600]
-};
-
 function buildBoxes() {
   for (const coord of Object.keys(rectangles)) {
     console.log(coord, rectangles[coord]);
@@ -24,13 +12,21 @@ function buildBoxes() {
         width: 100,
         height: 100,
         name: coord,
-        text: '1',
+        text: "1",
         fontSize: 30,
         fill: "green",
         stroke: "black",
         opacity: 1,
         strokeWidth: 4
       })
+    );
+  }
+}
+
+function addLabels() {
+  for (const index of labels) {
+    labelLayer.add(
+      new Konva.Text({ text: `${index[0]}`, width: 70, height: 70, x: index[1][0] + 70, y: index[1][1] + 60, fontSize: 36, fill: "white" })
     );
   }
 }
@@ -42,7 +38,9 @@ var stage = new Konva.Stage({
 });
 
 var layer = new Konva.Layer();
+var labelLayer = new Konva.Layer();
 buildBoxes();
+addLabels();
 
 var leap = new Leap.Controller();
 leap.connect();
@@ -59,7 +57,6 @@ leap.connect();
 // });
 
 var tipLayer = new Konva.Layer();
-
 var tip = new Konva.Circle({
   x: 0,
   y: 0,
@@ -157,6 +154,7 @@ var anim = new Konva.Animation(
 );
 
 stage.add(layer);
+stage.add(labelLayer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();

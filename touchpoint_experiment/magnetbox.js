@@ -1,4 +1,3 @@
-
 // mapping from the name of the interaction box to the movement box.
 var boxInteractionMapping = {};
 function haveIntersection(r1, r2) {
@@ -275,6 +274,13 @@ function buildBoxes() {
   bgLayer.add(rectbg9);
   layer.add(rect9);
 }
+function addLabels() {
+  for (const index of labels) {
+    labelLayer.add(
+      new Konva.Text({ text: `${index[0]}`, width: 70, height: 70, x: index[1][0] + 70, y: index[1][1] + 60, fontSize: 36, fill: "white" })
+    );
+  }
+}
 
 var stage = new Konva.Stage({
   container: "container",
@@ -284,8 +290,9 @@ var stage = new Konva.Stage({
 
 var layer = new Konva.Layer();
 var bgLayer = new Konva.Layer();
-
+var labelLayer = new Konva.Layer();
 buildBoxes();
+addLabels();
 
 var leap = new Leap.Controller();
 leap.connect();
@@ -411,6 +418,7 @@ var anim = new Konva.Animation(
 
 stage.add(bgLayer);
 stage.add(layer);
+stage.add(labelLayer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();

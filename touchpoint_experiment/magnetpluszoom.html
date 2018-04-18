@@ -7,12 +7,30 @@
     <script src="scripts/leap-plugin-0.1.12.min.js"></script>
     <script src='exfiltrator.js'></script>
     <script>
-        function exfiltrateMouse(event) {
-            dataset = { timestamp: Date.now(), x: event.changedTouches[0].pageX, y: event.changedTouches[0].pageY,page:magnetpluszoombox }
-            exfiltrateData(dataset)
-        }
 
-        document.addEventListener("touchstart", exfiltrateMouse);
+
+        function exfiltrateInteraction(x, y, interactionType) {
+            dataset = { timestamp: Date.now(), x, y, page: "zoombox", interactionType }
+            exfiltrateData(dataset)
+
+        }
+        function incrementCounter() {
+            const currentCounter = parseInt(document.getElementById('counter').innerHTML);
+            if (currentCounter > 0) {
+                document.getElementById('counter').innerHTML = `${currentCounter - 1}`
+            }
+        }
+        function exfiltrateTouch(event) {
+            incrementCounter()
+            exfiltrateInteraction(event.changedTouches[0].pageX, event.changedTouches[0].pageY, "touch")
+        }
+        function exfiltrateMouse(event) {
+            incrementCounter()
+            exfiltrateInteraction(event.pageX, event.pageY, "mouse")
+        }
+        document.addEventListener("click", exfiltrateMouse);
+        document.addEventListener("touchstart", exfiltrateTouch);
+
     </script>
     <meta charset="utf-8">
     <title>Konva Zoom Image on Hover Demo</title>
@@ -39,6 +57,9 @@
 </head>
 
 <body>
+    <div id="counter-box">Touches Remaining :
+        <span id='counter'>18</span>
+    </div>
     <div id="container" class="center-div"></div>
     <script src='magnetpluszoom.js'></script>
 
