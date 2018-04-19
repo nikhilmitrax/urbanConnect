@@ -227,7 +227,7 @@ var anim = new Konva.Animation(
         box.opacity(1);
       } else {
         box.fill("green");
-        box.opacity(0.2);
+        box.opacity(1);
       }
     });
   },
