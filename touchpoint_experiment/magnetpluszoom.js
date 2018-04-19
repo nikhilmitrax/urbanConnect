@@ -421,14 +421,13 @@ var anim = new Konva.Animation(
       }
     });
   },
-  [layer, overlayLayer, tipLayer]
+  [layer, tipLayer]
 );
 
 stage.add(bgLayer);
 stage.add(layer);
 stage.add(labelLayer);
 stage.add(tipLayer);
-stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {
