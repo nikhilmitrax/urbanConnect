@@ -1,4 +1,3 @@
-
 function haveIntersection(r1, r2) {
   return !(r2.x > r1.x + r1.width || r2.x + r2.width < r1.x || r2.y > r1.y + r1.height || r2.y + r2.height < r1.y);
 }
@@ -12,10 +11,10 @@ function buildBoxes() {
     name: "box 1",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect2 = new Konva.Rect({
     x: 350,
     y: 100,
@@ -24,10 +23,10 @@ function buildBoxes() {
     name: "box 2",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect3 = new Konva.Rect({
     x: 600,
     y: 100,
@@ -36,10 +35,10 @@ function buildBoxes() {
     name: "box 3",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect4 = new Konva.Rect({
     x: 100,
     y: 350,
@@ -48,10 +47,10 @@ function buildBoxes() {
     name: "box 4",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect5 = new Konva.Rect({
     x: 350,
     y: 350,
@@ -60,10 +59,10 @@ function buildBoxes() {
     name: "box 5",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect6 = new Konva.Rect({
     x: 600,
     y: 350,
@@ -72,10 +71,10 @@ function buildBoxes() {
     name: "box 6",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect7 = new Konva.Rect({
     x: 100,
     y: 600,
@@ -84,10 +83,10 @@ function buildBoxes() {
     name: "box 7",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect8 = new Konva.Rect({
     x: 350,
     y: 600,
@@ -96,10 +95,10 @@ function buildBoxes() {
     name: "box 8",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
-  
+
   var rect9 = new Konva.Rect({
     x: 600,
     y: 600,
@@ -108,7 +107,7 @@ function buildBoxes() {
     name: "box 9",
     fill: "green",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 4
   });
   // add the shape to the layer
@@ -163,7 +162,7 @@ var tip = new Konva.Circle({
   radius: 10,
   fill: "red",
   stroke: "black",
-  opacity: 1,
+  opacity: 0.4,
   strokeWidth: 2,
   opacity: 0.3,
   visible: true
@@ -179,7 +178,7 @@ for (const coord of calibrators) {
     radius: 10,
     fill: "blue",
     stroke: "black",
-    opacity: 1,
+    opacity: 0.4,
     strokeWidth: 2,
     opacity: 0.3,
     visible: true
@@ -189,10 +188,10 @@ for (const coord of calibrators) {
 
 tipLayer.add(tip);
 
- var overlay = new Konva.Text({ text: "Overlay", width: 100, height: 200, x: 690, y: 10 });
- overlayLayer = new Konva.Layer();
- overlayLayer.add(overlay);
- var anim = new Konva.Animation(
+var overlay = new Konva.Text({ text: "Overlay", width: 100, height: 200, x: 690, y: 10 });
+overlayLayer = new Konva.Layer();
+overlayLayer.add(overlay);
+var anim = new Konva.Animation(
   function(frame) {
     var time = frame.time,
       timeDiff = frame.timeDiff,
@@ -226,13 +225,27 @@ tipLayer.add(tip);
         tip.setY(stageHeight - posWRTCenter[1] * stageHeight);
       }
     }
+
+    // check collisions
+    tipBoundingBox = tip.getClientRect();
+    layer.children.each(box => {
+      boundingBox = box.getClientRect();
+      if (haveIntersection(tipBoundingBox, boundingBox) && pos[2] < 1) {
+        // console.log("Intersecting with", box.name());
+        box.fill("red");
+        box.opacity(1);
+      } else {
+        box.fill("green");
+        box.opacity(0.2);
+      }
+    });
   },
   [layer, overlayLayer, tipLayer]
 );
 
 stage.add(layer);
 stage.add(tipLayer);
-stage.add(overlayLayer);
+//stage.add(overlayLayer);
 anim.start();
 
 document.onkeypress = function(oPEvt) {

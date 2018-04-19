@@ -197,7 +197,7 @@ function buildBoxes() {
     width: 100,
     height: 100,
     name: "box7",
-    text:"7",
+    text: "7",
     fill: "green",
     stroke: "black",
     opacity: 1,
@@ -276,6 +276,14 @@ function buildBoxes() {
   layer.add(rect9);
 }
 
+function addLabels() {
+  for (const index of labels) {
+    labelLayer.add(
+      new Konva.Text({ text: `${index[0]}`, width: 70, height: 70, x: index[1][0] + 70, y: index[1][1] + 60, fontSize: 36, fill: "white" })
+    );
+  }
+}
+
 var stage = new Konva.Stage({
   container: "container",
   width: stageWidth,
@@ -283,9 +291,11 @@ var stage = new Konva.Stage({
 });
 
 var layer = new Konva.Layer();
+var labelLayer = new Konva.Layer();
 var bgLayer = new Konva.Layer();
 
 buildBoxes();
+addLabels();
 
 var leap = new Leap.Controller();
 leap.connect();
@@ -415,8 +425,8 @@ var anim = new Konva.Animation(
 );
 
 stage.add(bgLayer);
-// stage.add(text);
 stage.add(layer);
+stage.add(labelLayer);
 stage.add(tipLayer);
 stage.add(overlayLayer);
 anim.start();
