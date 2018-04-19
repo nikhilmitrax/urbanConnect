@@ -11,7 +11,7 @@ function buildBoxes() {
     name: "box 1",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -23,7 +23,7 @@ function buildBoxes() {
     name: "box 2",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -35,7 +35,7 @@ function buildBoxes() {
     name: "box 3",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -47,7 +47,7 @@ function buildBoxes() {
     name: "box 4",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -59,7 +59,7 @@ function buildBoxes() {
     name: "box 5",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -71,7 +71,7 @@ function buildBoxes() {
     name: "box 6",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -83,7 +83,7 @@ function buildBoxes() {
     name: "box 7",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -95,7 +95,7 @@ function buildBoxes() {
     name: "box 8",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
 
@@ -107,27 +107,19 @@ function buildBoxes() {
     name: "box 9",
     fill: "green",
     stroke: "black",
-    opacity: 0.4,
+    opacity: 1,
     strokeWidth: 4
   });
   // add the shape to the layer
 
   layer.add(rect1);
-
   layer.add(rect2);
-
   layer.add(rect3);
-
   layer.add(rect4);
-
   layer.add(rect5);
-
   layer.add(rect6);
-
   layer.add(rect7);
-
   layer.add(rect8);
-
   layer.add(rect9);
 }
 
@@ -139,7 +131,6 @@ var stage = new Konva.Stage({
 
 var layer = new Konva.Layer();
 buildBoxes();
-
 var leap = new Leap.Controller();
 leap.connect();
 
