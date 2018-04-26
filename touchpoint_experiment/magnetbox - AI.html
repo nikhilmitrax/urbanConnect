@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <script src='constants.js'></script>
+    <script src="scripts/konva.min.js"></script>
+    <script src="scripts/leap-0.6.4.js"></script>
+    <script src="scripts/leap-plugin-0.1.12.min.js"></script>
+    <script src='exfiltrator.js'></script>
+    <script>
+
+
+        function exfiltrateInteraction(x, y, interactionType) {
+            dataset = { timestamp: Date.now(), x, y, page: "magnetbox_AI", interactionType }
+            exfiltrateData(dataset)
+
+        }
+        function incrementCounter() {
+            const currentCounter = parseInt(document.getElementById('counter').innerHTML);
+            if (currentCounter > 0) {
+                document.getElementById('counter').innerHTML = `${currentCounter - 1}`
+            }
+        }
+        function exfiltrateTouch(event) {
+            incrementCounter()
+            exfiltrateInteraction(event.changedTouches[0].pageX, event.changedTouches[0].pageY, "touch")
+        }
+        function exfiltrateMouse(event) {
+            incrementCounter()
+            exfiltrateInteraction(event.pageX, event.pageY, "mouse")
+        }
+        document.addEventListener("click", exfiltrateMouse);
+        document.addEventListener("touchstart", exfiltrateTouch);
+
+    </script>
+    <meta charset="utf-8">
+    <title>Konva Zoom Image on Hover Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F0F0F0;
+        }
+
+        .center-div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 800px;
+            height: 800px;
+            background-color: beige
+        }
+    </style>
+</head>
+
+<body>
+        <div id="counter-box", style="position: relative;padding-left:140px;padding-top:100px;margin-left: 250px;">Touches Remaining :
+                <br>   <span id='counter', style="color:blue;margin-left:30px;font-size: 82px; ">18</span>
+               </div>
+    <div id="container" class="center-div"></div>
+    <script src='magnetbox.js'></script>
+
+</body>
+
+</html>
