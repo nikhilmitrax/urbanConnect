@@ -813,7 +813,6 @@
 {"y": 895, "timestamp": 1524781082357, "interactionType": "touch", "page": "magnetpluszoom", "x": 216}
 {"y": 890, "timestamp": 1524781094044, "interactionType": "touch", "page": "magnetpluszoom", "x": 480.5}
 {"y": 859.5, "timestamp": 1524781099494, "interactionType": "touch", "page": "magnetpluszoom", "x": 753}
-
 {"y": 379.5, "timestamp": 1524783913926, "interactionType": "touch", "page": "baseline", "x": 213}
 {"y": 433.5, "timestamp": 1524783924723, "interactionType": "touch", "page": "baseline", "x": 470}
 {"y": 432, "timestamp": 1524783924775, "interactionType": "mouse", "page": "baseline", "x": 469}
