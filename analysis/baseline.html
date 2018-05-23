@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <script src="scripts/konva.min.js"></script>
+    <script src="scripts/leap-0.6.4.js"></script>
+    <script src="scripts/leap-plugin-0.1.12.min.js"></script>
+    <script src='constants.js'></script>
+    <script src="heatmap.js"></script>
+    <script>
+
+        window.onload = function () {
+
+            function httpGet(theUrl) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open("GET", theUrl, false); // false for synchronous request
+                xmlHttp.send(null);
+                return xmlHttp.responseText;
+            }
+
+            dataset = httpGet("http://localhost:8000/MagnetTouch.csv")
+            dataset = dataset.split("\n")
+
+            dataset.pop()
+            dataset.shift()
+            var heatmap = h337.create({
+                container: document.getElementById('container2'),
+                maxOpacity: .6,
+                radius: 50,
+                blur: .90,
+                // backgroundColor with alpha so you can see through it
+                backgroundColor: 'rgba(255, 255, 255, 0.5)'
+            });
+
+            for (const rawData of dataset) {
+                data = rawData.split(',')
+                xpoint = parseInt(data[2]) - 50
+                ypoint = parseInt(data[0]) - 220
+                heatmap.addData({ x: xpoint, y: ypoint, value: 2 });
+                // console.log(xpoint, ypoint)
+            }
+            // heatmap.addData({ x: 400, y: 410, value: 250 });
+        }
+    </script>
+    <meta charset="utf-8">
+    <title>Konva Zoom Image on Hover Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #F0F0F0;
+        }
+
+        .center-div {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 800px;
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="counter-box" , style="position: relative;padding-left:140px;padding-top:100px;margin-left: 250px;">Touches Remaining :
+        <br>
+        <span id='counter' , style="color:blue;margin-left:30px;font-size: 82px; ">18</span>
+    </div>
+    <div id="container" class="center-div"></div>
+    <div id="container2" class="center-div"></div>
+    <script src='baseline.js'></script>
+
+</body>
+
+</html>
